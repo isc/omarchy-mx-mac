@@ -58,3 +58,4 @@ assert_scroll_touchpad "an installed TUI in Alacritty scrolls at Alacritty's spe
 assert_scroll_touchpad "an agent window in Ghostty scrolls at Ghostty's speed" "org.omarchy.agent" "Ghostty" "0.2"
 assert_scroll_touchpad "Ghostty windows scroll at Ghostty's speed" "com.mitchellh.ghostty" "Ghostty" "0.2"
 assert_scroll_touchpad "other apps keep the global touchpad speed" "chromium" "foot" ""
+assert_scroll_touchpad "an Omarchy window whose title only starts with a terminal's name keeps the global touchpad speed" "org.omarchy.agent" "football" ""
