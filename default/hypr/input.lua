@@ -64,8 +64,19 @@ hl.config({
   },
 })
 
--- Scroll nicely in the terminal.
-o.window("(Alacritty|kitty)", { scroll_touchpad = 1.5 })
+-- Scroll nicely in the terminal. Omarchy runs TUIs and its own terminal windows
+-- under app-ids of their own (org.omarchy.agent, TUI.float, ...), which don't
+-- say which terminal they run in. The title the terminal opens them with does,
+-- so those windows get the speed of the terminal behind them.
+local function terminal_scroll(class, initial_title, scroll_touchpad)
+  o.window(class, { scroll_touchpad = scroll_touchpad })
+  o.window(
+    { class = "(org\\.omarchy\\..*|TUI\\..*)", initial_title = initial_title },
+    { scroll_touchpad = scroll_touchpad }
+  )
+end
+
+terminal_scroll("(Alacritty|kitty)", "(Alacritty|kitty)", 1.5)
 -- foot only applies its scrollback multiplier to wheel clicks, not precise touchpad scrolling.
-o.window("foot", { scroll_touchpad = 2.0 })
-o.window("com.mitchellh.ghostty", { scroll_touchpad = 0.2 })
+terminal_scroll("(foot|org\\.codeberg\\.dnkl\\.foot)", "foot", 2.0)
+terminal_scroll("com.mitchellh.ghostty", "Ghostty", 0.2)
